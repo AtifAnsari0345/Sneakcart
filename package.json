@@ -1,0 +1,25 @@
+{
+  "name": "sneakcart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "predeploy": "echo 'Preparing deployment...'",
+    "deploy": "gh-pages -d .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtifAnsari0345/Sneakcart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AtifAnsari0345/Sneakcart/issues"
+  },
+  "homepage": "https://AtifAnsari0345.github.io/Sneakcart",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}

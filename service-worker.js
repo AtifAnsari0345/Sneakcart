@@ -1,133 +1,87 @@
-const CACHE_NAME = "sneakcart-cache-v3";
-const urlsToCache = [
-  "/",
-  "/index.html",
-  "/offline.html",
-  "/style.css",
-  "/script.js",
-  "/products/shoe1.png",
-  "/products/shoe2.jpg",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png"
+const CACHE_NAME = "sneakcart-v2";
+const ASSETS_TO_CACHE = [
+  "/Sneakcart/",
+  "/Sneakcart/index.html",
+  "/Sneakcart/style.css",
+  "/Sneakcart/script.js",
+  "/Sneakcart/manifest.json",
+  "/Sneakcart/icons/icon-192.png",
+  "/Sneakcart/icons/icon-512.png",
+  "/Sneakcart/products/shoe1.png",
+  "/Sneakcart/products/shoe2.jpg",
+  "/Sneakcart/products/shoe3.jpg", // ➕ Add any additional assets here
+  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+  "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 ];
 
-// Install Event
-self.addEventListener('install', event => {
-  console.log('[SW] Install event');
+// ✅ Install
+self.addEventListener("install", (event) => {
+  console.log("📦 Service Worker installing...");
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[SW] Caching all files');
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log("✅ Caching app shell and assets");
+      return cache.addAll(ASSETS_TO_CACHE);
+    })
   );
+  self.skipWaiting(); // Activate worker immediately
 });
 
-// Activate Event
-self.addEventListener('activate', event => {
-  console.log('[SW] Activate event');
+// ✅ Activate
+self.addEventListener("activate", (event) => {
+  console.log("🔄 Service Worker activating...");
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then((keyList) => {
       return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            console.log('[SW] Deleting old cache:', cache);
-            return caches.delete(cache);
+        keyList.map((key) => {
+          if (key !== CACHE_NAME) {
+            console.log("🗑 Removing old cache:", key);
+            return caches.delete(key);
           }
         })
       );
     })
-    .then(() => self.clients.claim())
   );
+  self.clients.claim(); // Take control immediately
 });
 
-// Fetch Event (Cache with Network Fallback)
-self.addEventListener('fetch', event => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') return;
-
+// ✅ Fetch (Offline-first)
+self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        // Return cached response if found
-        if (cachedResponse) {
-          console.log(`[SW] Serving from cache: ${event.request.url}`);
-          return cachedResponse;
-        }
-
-        // Otherwise fetch from network
-        return fetch(event.request)
-          .then(networkResponse => {
-            // Cache the new response if successful
-            if (networkResponse && networkResponse.status === 200) {
-              const responseToCache = networkResponse.clone();
-              caches.open(CACHE_NAME)
-                .then(cache => cache.put(event.request, responseToCache));
-            }
-            return networkResponse;
-          })
-          .catch(() => {
-            // If both fail, show offline page for HTML requests
-            if (event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/offline.html');
-            }
-          });
-      })
+    caches.match(event.request).then((cachedResponse) => {
+      return (
+        cachedResponse ||
+        fetch(event.request).catch(() => {
+          // Offline fallback for navigation requests
+          if (event.request.mode === "navigate") {
+            return caches.match("/Sneakcart/index.html");
+          }
+        })
+      );
+    })
   );
 });
 
-// Sync Event
-self.addEventListener('sync', event => {
-  if (event.tag === 'sync-form') {
-    console.log('[SW] Background sync triggered');
+// ✅ Background Sync
+self.addEventListener("sync", (event) => {
+  if (event.tag === "sync-dummy-form") {
     event.waitUntil(
-      (async () => {
-        // Simulate sync process
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Get all clients to show sync complete message
-        const clients = await self.clients.matchAll();
-        clients.forEach(client => {
-          client.postMessage({
-            type: 'sync-complete',
-            data: localStorage.getItem('syncData') || 'No data'
-          });
-        });
-        
-        console.log('[SW] Background sync completed');
-      })()
+      // Simulate form re-submission or API retry
+      new Promise((resolve) => {
+        console.log("🔁 Background Sync triggered!");
+        setTimeout(resolve, 2000);
+      })
     );
   }
 });
 
-// Push Event
-self.addEventListener('push', event => {
-  const data = event.data ? event.data.json() : {};
-  
-  if (data.method === 'pushMessage') {
-    const title = data.title || '🛍️ SneakCart Update';
-    const options = {
-      body: data.message || 'New deals available!',
-      icon: '/icons/icon-192.png',
-      badge: '/icons/icon-192.png'
-    };
-
-    event.waitUntil(
-      self.registration.showNotification(title, options)
-    );
-  }
-});
-
-// Message Event (for communication from page)
-self.addEventListener('message', event => {
-  if (event.data && event.data.method === 'pushMessage') {
-    self.registration.showNotification(
-      event.data.title || '🛍️ SneakCart', 
-      {
-        body: event.data.message,
-        icon: '/icons/icon-192.png'
-      }
-    );
-  }
+// ✅ Push Notifications (demo setup)
+self.addEventListener("push", (event) => {
+  const data = event.data ? event.data.text() : "🔥 Hot new drops just landed!";
+  event.waitUntil(
+    self.registration.showNotification("👟 SneakCart", {
+      body: data,
+      icon: "/Sneakcart/icons/icon-192.png",
+      badge: "/Sneakcart/icons/icon-192.png"
+    })
+  );
 });

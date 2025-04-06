@@ -4,8 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SneakCart – Premium Sneaker Store</title>
+
+  <!-- Meta Descriptions -->
   <meta name="description" content="Discover the hottest sneaker deals online">
+  <meta name="theme-color" content="#ffd31d"> <!-- Updated theme color -->
+
+  <!-- PWA Requirements -->
+  <link rel="apple-touch-icon" href="icons/icon-192.png"> <!-- Apple Touch Icon -->
   <link rel="manifest" href="manifest.json" />
+
+  <!-- Styling & Icons -->
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://emojiapi.dev/api/v1/1f45f/64.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
   <header>
     <div class="header-content">
@@ -118,19 +127,20 @@
         <p>100% secure checkout</p>
       </div>
     </section>
+
     <section class="sync-section">
-        <div class="sync-card">
-          <h3><i class="fas fa-sync-alt"></i> Try Background Sync</h3>
-          <p class="sync-subtitle">Test how SneakCart stays smart — even offline!</p>
-          <form id="dummyForm" class="sync-form">
-            <input type="text" placeholder="Enter test data..." id="dummyInput" required />
-            <button type="submit" class="sync-button">
-              <i class="fas fa-paper-plane"></i> Submit
-            </button>
-          </form>
-          <div id="status" class="sync-status">Waiting for input...</div>
-        </div>
-      </section>      
+      <div class="sync-card">
+        <h3><i class="fas fa-sync-alt"></i> Try Background Sync</h3>
+        <p class="sync-subtitle">Test how SneakCart stays smart — even offline!</p>
+        <form id="dummyForm" class="sync-form">
+          <input type="text" placeholder="Enter test data..." id="dummyInput" required />
+          <button type="submit" class="sync-button">
+            <i class="fas fa-paper-plane"></i> Submit
+          </button>
+        </form>
+        <div id="status" class="sync-status">Waiting for input...</div>
+      </div>
+    </section>      
   </main>
 
   <footer>
