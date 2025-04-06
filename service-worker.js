@@ -85,3 +85,16 @@ self.addEventListener("push", (event) => {
     })
   );
 });
+
+self.addEventListener('install', (event) => {
+  console.log("📦 Service Worker installing...");
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(assets)
+          .catch(err => {
+            console.error("❌ Caching failed:", err);
+          });
+      })
+  );
+});
