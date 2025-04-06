@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SneakCart – Premium Sneaker Store</title>
+  <meta name="description" content="Discover the hottest sneaker deals online">
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://emojiapi.dev/api/v1/1f45f/64.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <i class="fas fa-shoe-prints logo-icon"></i>
+        <h1>SneakCart</h1>
+      </div>
+      <p class="subtitle">Step Into Style</p>
+      <div class="header-actions">
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+        <button class="cart-btn"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></button>
+      </div>
+    </div>
+    <div class="header-gradient"></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h2>Limited Edition Drops</h2>
+        <p>Get exclusive sneakers before they sell out</p>
+        <button class="cta-button">Shop New Arrivals <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </section>
+
+    <section class="product-grid">
+      <div class="section-header">
+        <h3>Trending Now</h3>
+        <a href="#" class="view-all">View All</a>
+      </div>
+      
+      <div class="products-container">
+        <div class="product-card">
+          <div class="product-badge">HOT</div>
+          <div class="product-image-container">
+            <img src="products/shoe1.png" alt="AirMax Pro" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-meta">
+              <span class="brand">Nike</span>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(24)</span>
+              </div>
+            </div>
+            <h2 class="product-title">AirMax Pro 2025</h2>
+            <div class="price-container">
+              <span class="current-price">₹4,999</span>
+              <span class="original-price">₹6,999</span>
+              <span class="discount">28% OFF</span>
+            </div>
+            <button class="add-to-cart">Add to Cart <i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-badge new">NEW</div>
+          <div class="product-image-container">
+            <img src="products/shoe2.jpg" alt="Runner X" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-meta">
+              <span class="brand">Adidas</span>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(18)</span>
+              </div>
+            </div>
+            <h2 class="product-title">Runner X Ultra</h2>
+            <div class="price-container">
+              <span class="current-price">₹3,499</span>
+              <span class="original-price">₹4,999</span>
+              <span class="discount">30% OFF</span>
+            </div>
+            <button class="add-to-cart">Add to Cart <i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature-card">
+        <i class="fas fa-truck"></i>
+        <h4>Free Shipping</h4>
+        <p>On orders over ₹1999</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-exchange-alt"></i>
+        <h4>Easy Returns</h4>
+        <p>30-day return policy</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-lock"></i>
+        <h4>Secure Payment</h4>
+        <p>100% secure checkout</p>
+      </div>
+    </section>
+    <section class="sync-section">
+        <div class="sync-card">
+          <h3><i class="fas fa-sync-alt"></i> Try Background Sync</h3>
+          <p class="sync-subtitle">Test how SneakCart stays smart — even offline!</p>
+          <form id="dummyForm" class="sync-form">
+            <input type="text" placeholder="Enter test data..." id="dummyInput" required />
+            <button type="submit" class="sync-button">
+              <i class="fas fa-paper-plane"></i> Submit
+            </button>
+          </form>
+          <div id="status" class="sync-status">Waiting for input...</div>
+        </div>
+      </section>      
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 SneakCart. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then((reg) => {
+          console.log("✅ Service Worker registered", reg);
+        })
+        .catch((err) => {
+          console.log("❌ Service Worker registration failed", err);
+        });
+    }
+  </script>
+</body>
+</html>
