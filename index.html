@@ -7,19 +7,23 @@
 
   <!-- Meta Descriptions -->
   <meta name="description" content="Discover the hottest sneaker deals online">
-  <meta name="theme-color" content="#ffd31d"> <!-- Updated theme color -->
+  <meta name="theme-color" content="#ffd31d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
 
   <!-- PWA Requirements -->
-  <link rel="apple-touch-icon" href="/Sneakcart/icons/icon-192.png"> <!-- Apple Touch Icon -->
-  <link rel="manifest" href="/Sneakcart/manifest.json" />
+  <link rel="manifest" href="/Sneakcart/manifest.json">
+  <link rel="icon" href="/Sneakcart/icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="/Sneakcart/icons/icon-192.png">
 
-  <!-- Styling & Icons -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://emojiapi.dev/api/v1/1f45f/64.png" />
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -54,6 +58,7 @@
       </div>
       
       <div class="products-container">
+        <!-- Product 1 -->
         <div class="product-card">
           <div class="product-badge">HOT</div>
           <div class="product-image-container">
@@ -63,10 +68,8 @@
             <div class="product-meta">
               <span class="brand">Nike</span>
               <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
                 <span>(24)</span>
               </div>
@@ -81,6 +84,7 @@
           </div>
         </div>
 
+        <!-- Product 2 -->
         <div class="product-card">
           <div class="product-badge new">NEW</div>
           <div class="product-image-container">
@@ -90,10 +94,8 @@
             <div class="product-meta">
               <span class="brand">Adidas</span>
               <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
                 <i class="far fa-star"></i>
                 <span>(18)</span>
               </div>
@@ -128,6 +130,7 @@
       </div>
     </section>
 
+    <!-- Background Sync Testing -->
     <section class="sync-section">
       <div class="sync-card">
         <h3><i class="fas fa-sync-alt"></i> Try Background Sync</h3>
@@ -140,7 +143,7 @@
         </form>
         <div id="status" class="sync-status">Waiting for input...</div>
       </div>
-    </section>      
+    </section>
   </main>
 
   <footer>
@@ -175,15 +178,16 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="script.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register('/Sneakcart/service-worker.js')
-        .then((reg) => {
-          console.log("✅ Service Worker registered", reg);
+      navigator.serviceWorker.register("/Sneakcart/service-worker.js")
+        .then((registration) => {
+          console.log("✅ Service Worker registered:", registration.scope);
         })
-        .catch((err) => {
-          console.log("❌ Service Worker registration failed", err);
+        .catch((error) => {
+          console.error("❌ Service Worker registration failed:", error);
         });
     }
   </script>

@@ -1,7 +1,9 @@
 const CACHE_NAME = "sneakcart-v2";
+
 const ASSETS_TO_CACHE = [
   "/Sneakcart/",
   "/Sneakcart/index.html",
+  "/Sneakcart/offline.html",
   "/Sneakcart/style.css",
   "/Sneakcart/script.js",
   "/Sneakcart/manifest.json",
@@ -9,12 +11,11 @@ const ASSETS_TO_CACHE = [
   "/Sneakcart/icons/icon-512.png",
   "/Sneakcart/products/shoe1.png",
   "/Sneakcart/products/shoe2.jpg",
-  "/Sneakcart/products/shoe3.jpg", // ➕ Add any additional assets here
   "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
   "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 ];
 
-// ✅ Install
+// ✅ Install Event
 self.addEventListener("install", (event) => {
   console.log("📦 Service Worker installing...");
   event.waitUntil(
@@ -23,10 +24,10 @@ self.addEventListener("install", (event) => {
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
-  self.skipWaiting(); // Activate worker immediately
+  self.skipWaiting(); // Immediately activate
 });
 
-// ✅ Activate
+// ✅ Activate Event
 self.addEventListener("activate", (event) => {
   console.log("🔄 Service Worker activating...");
   event.waitUntil(
@@ -41,19 +42,18 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
-  self.clients.claim(); // Take control immediately
+  self.clients.claim(); // Control pages immediately
 });
 
-// ✅ Fetch (Offline-first)
+// ✅ Fetch Event (Offline-first)
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       return (
         cachedResponse ||
         fetch(event.request).catch(() => {
-          // Offline fallback for navigation requests
           if (event.request.mode === "navigate") {
-            return caches.match("/Sneakcart/index.html");
+            return caches.match("/Sneakcart/offline.html");
           }
         })
       );
@@ -61,20 +61,22 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-// ✅ Background Sync
+// ✅ Background Sync Event
 self.addEventListener("sync", (event) => {
   if (event.tag === "sync-dummy-form") {
     event.waitUntil(
-      // Simulate form re-submission or API retry
       new Promise((resolve) => {
         console.log("🔁 Background Sync triggered!");
-        setTimeout(resolve, 2000);
+        setTimeout(() => {
+          console.log("✅ Dummy form sync simulated");
+          resolve();
+        }, 2000); // Simulate sync delay
       })
     );
   }
 });
 
-// ✅ Push Notifications (demo setup)
+// ✅ Push Notification Event
 self.addEventListener("push", (event) => {
   const data = event.data ? event.data.text() : "🔥 Hot new drops just landed!";
   event.waitUntil(
@@ -83,18 +85,5 @@ self.addEventListener("push", (event) => {
       icon: "/Sneakcart/icons/icon-192.png",
       badge: "/Sneakcart/icons/icon-192.png"
     })
-  );
-});
-
-self.addEventListener('install', (event) => {
-  console.log("📦 Service Worker installing...");
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(assets)
-          .catch(err => {
-            console.error("❌ Caching failed:", err);
-          });
-      })
   );
 });
