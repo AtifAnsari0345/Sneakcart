@@ -26,13 +26,13 @@
   {
     "src": "screenshots/home-desktop.png",
     "type": "image/png",
-    "sizes": "1456x830",
+    "sizes": "1280x720",
     "form_factor": "wide"
   },
   {
     "src": "screenshots/home-mobile.png",
     "type": "image/png",
-    "sizes": "1494x845",
+    "sizes": "414x896",
     "form_factor": "narrow"
   }
 ],
