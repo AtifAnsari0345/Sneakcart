@@ -5,7 +5,7 @@
   "scope": "/Sneakcart/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#ffd31d",
   "orientation": "portrait-primary",
   "description": "Discover and shop limited edition premium sneakers. Built as a Progressive Web App (PWA) for the ultimate experience.",
   "icons": [

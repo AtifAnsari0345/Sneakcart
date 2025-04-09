@@ -49,14 +49,19 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      return (
-        cachedResponse ||
-        fetch(event.request).catch(() => {
-          if (event.request.mode === "navigate") {
-            return caches.match("/Sneakcart/offline.html");
-          }
-        })
-      );
+      if (cachedResponse) {
+        return cachedResponse; // Serve cached content immediately
+      }
+      return fetch(event.request).then((networkResponse) => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      }).catch(() => {
+        if (event.request.mode === "navigate") {
+          return caches.match("/Sneakcart/offline.html");
+        }
+      });
     })
   );
 });
