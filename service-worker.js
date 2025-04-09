@@ -10,9 +10,7 @@ const ASSETS_TO_CACHE = [
   "/Sneakcart/icons/icon-192.png",
   "/Sneakcart/icons/icon-512.png",
   "/Sneakcart/products/shoe1.png",
-  "/Sneakcart/products/shoe2.jpg",
-  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
-  "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+  "/Sneakcart/products/shoe2.jpg"
 ];
 
 // ✅ Install Event
@@ -50,17 +48,17 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        return cachedResponse; // Serve cached content immediately
+        return cachedResponse;
       }
-      return fetch(event.request).then((networkResponse) => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        });
-      }).catch(() => {
+      return fetch(event.request).catch(() => {
         if (event.request.mode === "navigate") {
           return caches.match("/Sneakcart/offline.html");
         }
+        // Fallback for other resource types (optional)
+        if (event.request.destination === "image") {
+          return caches.match("/Sneakcart/icons/icon-192.png");
+        }
+        return new Response("Offline", { status: 503 });
       });
     })
   );
